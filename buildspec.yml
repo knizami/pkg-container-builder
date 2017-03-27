@@ -1,0 +1,22 @@
+version: 0.1
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --region $AWS_REGION)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $NAME:$VERSION .
+      - "docker tag $NAME:$VERSION $REPO:$VERSION"
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - "docker push $REPO:$VERSION"
+      - "echo {\\\"image\\\":\\\"$REPO:$VERSION\\\"} > image.json"
+artifacts:
+  files:
+    - 'image.json'
