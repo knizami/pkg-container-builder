@@ -9,14 +9,14 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - "docker build -t $NAME:$VERSION ."
-      - "docker tag $NAME:$VERSION $REPO:latest"
+      - "docker build -t $NAME:latest ."
+      - "docker tag $NAME:latest $REPO:latest"
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - "docker push $REPO:$VERSION"
-      - "echo {\\\"image\\\":\\\"$REPO:$VERSION\\\"} > image.json"
+      - "docker push $REPO:latest"
+      - "echo {\\\"image\\\":\\\"$REPO:latest\\\"} > image.json"
 artifacts:
   files:
     - 'image.json'
