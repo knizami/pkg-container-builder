@@ -10,7 +10,6 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - "docker build -t $NAME:$VERSION ."
-      - "docker tag $NAME:$VERSION $REPO:$VERSION"
       - "docker tag $NAME:$VERSION $REPO:latest"
   post_build:
     commands:
